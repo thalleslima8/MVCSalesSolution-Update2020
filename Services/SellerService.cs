@@ -3,6 +3,7 @@ using MVCSalesSolution.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace MVCSalesSolution.Services
@@ -27,5 +28,18 @@ namespace MVCSalesSolution.Services
             _context.Add(obj);
             _context.SaveChanges();
         }
+
+        public Seller FindbyId(int id)
+        {
+            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj = _context.Seller.Find(id);
+            _context.Seller.Remove(obj);
+            _context.SaveChanges();
+        }
+
     }
 }
