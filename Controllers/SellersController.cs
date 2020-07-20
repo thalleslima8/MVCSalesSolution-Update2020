@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MVCSalesSolution.Models;
+using MVCSalesSolution.Models.ViewModels;
 using MVCSalesSolution.Services;
 
 namespace MVCSalesSolution.Controllers
@@ -11,10 +12,12 @@ namespace MVCSalesSolution.Controllers
     public class SellersController : Controller
     {
         private readonly SellerService _sellerService;
+        private readonly DepartmentService _departmentService;
 
-        public SellersController(SellerService sellerService)
+        public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
+            _departmentService = departmentService;
         }
 
         public IActionResult Index() //Open an Index page, on View folder Sellers
@@ -25,7 +28,9 @@ namespace MVCSalesSolution.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departments = _departmentService.FindAll();
+            var viewModel = new SellerFormViewModel { Departments = departments };
+            return View(viewModel);
         }
 
         [HttpPost]
