@@ -1,4 +1,5 @@
-﻿using MVCSalesSolution.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MVCSalesSolution.Data;
 using MVCSalesSolution.Models;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,9 @@ namespace MVCSalesSolution.Services
             _context = context;
         }
 
-        public List<Department> FindAll()
+        public async Task<List<Department>> FindAllAsync()
         {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
 
     }
