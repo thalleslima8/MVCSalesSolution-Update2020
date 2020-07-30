@@ -38,7 +38,7 @@ namespace MVCSalesSolution.Services
 
         public async Task RemoveAsync(int id) //remove selected seller
         {
-            try
+            try //try to catch a integrity exception - foreign key (seller->salesRecord)
             {
                 var obj = await _context.Seller.FindAsync(id);
                 _context.Seller.Remove(obj);
